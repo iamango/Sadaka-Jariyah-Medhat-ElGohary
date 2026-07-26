@@ -166,13 +166,7 @@ footer b{color:var(--soft-green);}
     <div class="arch">
       <div class="name-label">هذه صفحة ذكر ودعاء لروح</div>
       <input id="deceasedName" type="text" value="مدحت نديم الجوهرى" oninput="syncName()">
-      <div class="gender-toggle">
-        <button class="gender-btn active" id="btn-f" onclick="setGender('f')">أنثى</button>
-        <button class="gender-btn" id="btn-m" onclick="setGender('m')">ذكر</button>
-      </div>
-      <div class="rahima" id="rahimaText">رحمها الله وأسكنها فسيح جناته</div>
-    </div>
-    <div class="verse">
+          <div class="verse">
       إنَّ لله ما أخذ، وله ما أعطى، وكلٌّ عنده بأجلٍ مُسمّى، فلتصبر ولتحتسب
     </div>
   </div>
@@ -232,27 +226,18 @@ footer b{color:var(--soft-green);}
 
 <script>
 const dhikrList = [
-  {id:'raise', m:'اللهم ارفع درجاته', f:'اللهم ارفع درجاتها'},
-  {id:'afu',   m:'اللهم اعفُ عنه',    f:'اللهم اعفُ عنها'},
-  {id:'ghfr',  m:'اللهم اغفر له',     f:'اللهم اغفر لها'},
-  {id:'rhm',   m:'اللهم ارحمه',       f:'اللهم ارحمها'},
-  {id:'akbar', m:'الله أكبر',         f:'الله أكبر'},
-  {id:'hamd',  m:'الحمد لله',         f:'الحمد لله'},
-  {id:'sbh',   m:'سبحان الله',        f:'سبحان الله'},
-  {id:'stg',   m:'أستغفر الله',       f:'أستغفر الله'},
+  {id:'raise', m:'اللهم ارفع درجاته' },
+  {id:'afu',   m:'اللهم اعفُ عنه' },
+  {id:'ghfr',  m:'اللهم اغفر له' },
+  {id:'rhm',   m:'اللهم ارحمه' },
+  {id:'akbar', m:'الله أكبر'  },
+  {id:'hamd',  m:'الحمد لله' },
+  {id:'sbh',   m:'سبحان الله' },
+  {id:'stg',   m:'أستغفر الله' },
 ];
 const TARGET = 33;
 const R = 24, C = 2*Math.PI*R;
 const counts = {};
-let gender = 'f';
-
-function setGender(g){
-  gender = g;
-  document.getElementById('btn-f').classList.toggle('active', g==='f');
-  document.getElementById('btn-m').classList.toggle('active', g==='m');
-  buildGrid();
-  syncName();
-}
 
 function buildGrid(){
   const grid = document.getElementById('tasbihGrid');
@@ -264,7 +249,7 @@ function buildGrid(){
     card.id = 'card-'+d.id;
     card.onclick = ()=>tap(d.id);
     card.innerHTML = `
-      <div class="dhikr-phrase">${gender==='m' ? d.m : d.f}</div>
+      <div class="dhikr-phrase">${d.text}</div>
       <div class="ring">
         <svg width="56" height="56" viewBox="0 0 56 56">
           <circle class="track" cx="28" cy="28" r="${R}"></circle>
@@ -308,29 +293,23 @@ function syncName(){
   document.getElementById('topbarName').textContent = val;
   document.title = 'صدقة جارية · ' + val;
 
-  if(gender === 'm'){
-    document.getElementById('rahimaText').textContent = 'رحمه الله وأسكنه فسيح جناته';
-    document.getElementById('duaCard').textContent =
-      `اللهم اغفر لـ${val} وارحمه، وأكرم نُزُله ووسّع مدخله، ` +
-      `واغسله بالماء والثلج والبرد، ونقّه من الخطايا كما يُنقّى الثوب الأبيض من الدنس، ` +
-      `وأبدله داراً خيراً من داره، وأهلاً خيراً من أهله، وأدخله الجنة، ` +
-      `وأعذه من عذاب القبر ومن عذاب النار.`;
-    document.getElementById('footerLine').textContent = 'لا تحرمه الدعاء، ولا تحرم نفسك الأجر';
-  } else {
-    document.getElementById('rahimaText').textContent = 'رحمها الله وأسكنها فسيح جناته';
-    document.getElementById('duaCard').textContent =
-      `اللهم اغفر لـ${val} وارحمها، وأكرم نُزُلها ووسّع مدخلها، ` +
-      `واغسلها بالماء والثلج والبرد، ونقّها من الخطايا كما يُنقّى الثوب الأبيض من الدنس، ` +
-      `وأبدلها داراً خيراً من دارها، وأهلاً خيراً من أهلها، وأدخلها الجنة، ` +
-      `وأعذها من عذاب القبر ومن عذاب النار.`;
-    document.getElementById('footerLine').textContent = 'لا تُحرمها الدعاء، ولا تحرم نفسك الأجر';
-  }
+document.getElementById('rahimaText').textContent =
+    'رحمه الله وأسكنه فسيح جناته';
+
+  document.getElementById('duaCard').textContent =
+    `اللهم اغفر لـ${val} وارحمه، وأكرم نُزُله ووسّع مدخله، ` +
+    `واغسله بالماء والثلج والبرد، ونقّه من الخطايا كما يُنقّى الثوب الأبيض من الدنس، ` +
+    `وأبدله داراً خيراً من داره، وأهلاً خيراً من أهله، وأدخله الجنة، ` +
+    `وأعذه من عذاب القبر ومن عذاب النار.`;
+
+  document.getElementById('footerLine').textContent =
+    'لا تحرمه الدعاء، ولا تحرم نفسك الأجر';
 }
 
 function shareWA(e){
   e.preventDefault();
   const name = document.getElementById('deceasedName').value.trim() || 'المتوفى';
-  const text = encodeURIComponent('صدقة جارية عن روح ' + name + ' — سبّح وادعُ لها: ' + location.href);
+  const text = encodeURIComponent('صدقة جارية عن روح ' + name + ' — سبّح وادعُ له: ' + location.href);
   window.open('https://api.whatsapp.com/send?text=' + text, '_blank');
 }
 
